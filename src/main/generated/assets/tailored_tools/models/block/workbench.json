@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "tailored_tools:block/workbench_bottom",
+    "side": "tailored_tools:block/workbench_side",
+    "top": "tailored_tools:block/workbench_top"
+  }
+}

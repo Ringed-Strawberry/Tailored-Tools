@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "tailored_tools",
+  "version": "${version}",
+  "name": "Tailored Tools",
+  "description": "Adds customizable Tool & Equipment, tailored by each player, for each player!",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/tailored_tools/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "ringed_strawberry.github.io.tailored_tools.client.TailoredToolsDataGenerator"
+    ],
+    "client": [
+      "ringed_strawberry.github.io.tailored_tools.client.TailoredToolsClient"
+    ],
+    "main": [
+      "ringed_strawberry.github.io.tailored_tools.TailoredTools"
+    ]
+  },
+  "mixins": [
+    "tailored_tools.mixins.json",
+    {
+      "config": "tailored_tools.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
