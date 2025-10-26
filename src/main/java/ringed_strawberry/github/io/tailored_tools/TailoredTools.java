@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 
 import static ringed_strawberry.github.io.tailored_tools.block.ModBlocks.registerModBlocks;
 import static ringed_strawberry.github.io.tailored_tools.block.entity.ModBlockEntities.registerModBlockEntities;
-import static ringed_strawberry.github.io.tailored_tools.item.ModItems.registerModItems;
 
 public class TailoredTools implements ModInitializer {
     public final static String MOD_ID = "tailored_tools";
@@ -12,6 +11,8 @@ public class TailoredTools implements ModInitializer {
     public void onInitialize() {
         registerModBlocks();
         registerModBlockEntities();
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new TailoredToolsReader());
+
         registerModItems();
     }
 }
