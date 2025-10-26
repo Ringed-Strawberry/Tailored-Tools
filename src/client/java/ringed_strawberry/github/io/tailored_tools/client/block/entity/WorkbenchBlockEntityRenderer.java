@@ -1,21 +1,21 @@
 package ringed_strawberry.github.io.tailored_tools.client.block.entity;
 
-import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.item.ItemRenderState;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemDisplayContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.HeldItemContext;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import ringed_strawberry.github.io.tailored_tools.block.entity.custom.WorkbenchBlockEntity;
@@ -38,6 +38,10 @@ public class WorkbenchBlockEntityRenderer implements BlockEntityRenderer<Workben
         if(!state.itemRenderState.isEmpty()){
             matrices.push();
             matrices.translate(0,1,0);
+            queue.submitItem(matrices, ItemDisplayContext.FIXED, state.lightmapCoordinates,
+                    OverlayTexture.DEFAULT_UV,
+                    0, new int[0], null,
+                    RenderLayers.getItemLayer(Items.DIAMOND_BLOCK.getDefaultStack()), ItemRenderState.Glint.NONE);
             state.itemRenderState.render(matrices, queue, state.lightmapCoordinates, OverlayTexture.DEFAULT_UV, 0);
             matrices.pop();
         }
