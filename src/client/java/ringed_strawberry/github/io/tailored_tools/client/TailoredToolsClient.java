@@ -13,6 +13,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import ringed_strawberry.github.io.spacelib.block.util.BlockHitUtil;
 import ringed_strawberry.github.io.tailored_tools.block.ModBlocks;
+import ringed_strawberry.github.io.tailored_tools.block.custom.WorkbenchBlock;
 import ringed_strawberry.github.io.tailored_tools.block.entity.ModBlockEntities;
 import ringed_strawberry.github.io.tailored_tools.client.block.entity.WorkbenchBlockEntityRenderer;
 
@@ -30,9 +31,7 @@ public class TailoredToolsClient implements ClientModInitializer {
                 BlockState blockState = client.world.getBlockState(blockPos);
                 Block block = blockState.getBlock();
                 if(block == ModBlocks.WORKBENCH){
-                    if(BlockHitUtil.isInteractionInRange(blockHit, 0.42f, 0.28f, 2)){
-                        client.world.addImportantParticleClient(ParticleTypes.HAPPY_VILLAGER, true, blockHit.getPos().getX(), blockHit.getPos().getY(), blockHit.getPos().getZ(), 0, 0, 0);
-                    }
+                    WorkbenchBlock.handlePlayerLook(blockHit, client.world);
                 }
             }
         });
