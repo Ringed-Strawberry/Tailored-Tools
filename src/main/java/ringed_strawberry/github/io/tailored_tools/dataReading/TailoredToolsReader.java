@@ -19,6 +19,7 @@ import ringed_strawberry.github.io.tailored_tools.custom.toolparts.RodStats;
 import ringed_strawberry.github.io.tailored_tools.custom.toolparts.ToolHeadStats;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 import static ringed_strawberry.github.io.tailored_tools.TailoredTools.LOGGER;
@@ -38,8 +39,8 @@ public class TailoredToolsReader implements SimpleSynchronousResourceReloadListe
         HashMap<Identifier, Material> tempMaterials = new HashMap<>();
 
         for (Identifier id: manager.findResources("materials", path -> path.toString().endsWith(".json")).keySet()){
-            try (InputStream stream = manager.getResource(id).get().getInputStream()){
-                JsonObject json = JsonHelper.deserialize(GSON, stream.toString(), JsonObject.class);
+            try (InputStreamReader stream = new InputStreamReader(manager.getResource(id).get().getInputStream()) ){
+                JsonObject json = JsonHelper.deserialize(GSON, stream, JsonObject.class);
 
                 Material material = Materials.parse(json);
 
