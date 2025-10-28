@@ -1,0 +1,20 @@
+{
+  "id": "tailored_tools:spruce",
+
+
+  "toolhead.damage": 4,
+  "toolhead.speed": 1.2,
+  "toolhead.durability": 45,
+  "toolhead.breaking_level": 1,
+
+
+  "hilt.speed": 0,
+
+
+  "rod.durability": 15,
+  "rod.speed": 0.3,
+
+
+  "binding.durability": 65,
+  "binding.speed": 0.3
+}

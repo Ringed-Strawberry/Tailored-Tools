@@ -1,0 +1,20 @@
+{
+  "id": "tailored_tools:oak",
+
+
+  "toolhead.damage": 4,
+  "toolhead.speed": 1,
+  "toolhead.durability": 50,
+  "toolhead.breaking_level": 1,
+
+
+  "hilt.speed": 0,
+
+
+  "rod.durability": 20,
+  "rod.speed": 0.1,
+
+
+  "binding.durability": 70,
+  "binding.speed": 0.1
+}
