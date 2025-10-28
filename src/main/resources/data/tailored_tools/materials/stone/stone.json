@@ -1,0 +1,20 @@
+{
+  "id": "tailored_tools:stone",
+
+
+  "toolhead.damage": 5,
+  "toolhead.speed": 2,
+  "toolhead.durability": 90,
+  "toolhead.breaking_level": 2,
+
+
+  "hilt.speed": 0,
+
+
+  "rod.durability": 30,
+  "rod.speed": 0.1,
+
+
+  "binding.durability": 90,
+  "binding.speed": 0.3
+}
