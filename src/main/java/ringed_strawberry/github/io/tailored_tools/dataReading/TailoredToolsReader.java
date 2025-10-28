@@ -21,6 +21,7 @@ import ringed_strawberry.github.io.tailored_tools.custom.toolparts.ToolHeadStats
 import java.io.InputStream;
 import java.util.HashMap;
 
+import static ringed_strawberry.github.io.tailored_tools.TailoredTools.LOGGER;
 import static ringed_strawberry.github.io.tailored_tools.TailoredTools.MOD_ID;
 
 public class TailoredToolsReader implements SimpleSynchronousResourceReloadListener {
@@ -44,7 +45,7 @@ public class TailoredToolsReader implements SimpleSynchronousResourceReloadListe
 
                 tempMaterials.put(material.id(),material);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                LOGGER.info("ERROR loading materials    ERROR:   " + e.getMessage());
             }
 
             Materials.materialList.clear();

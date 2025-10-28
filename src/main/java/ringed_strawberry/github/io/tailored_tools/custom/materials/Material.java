@@ -10,7 +10,6 @@ import ringed_strawberry.github.io.tailored_tools.custom.toolparts.ToolHeadStats
 
 public record Material(Identifier id, // Added it for simpler code sake, feel free to delete it if it breaks everything
                        Item item,
-                       Text translationKey,
                        HiltStats hiltStats,
                        ToolHeadStats toolHeadStats,
                        BindingStats bindingStats,

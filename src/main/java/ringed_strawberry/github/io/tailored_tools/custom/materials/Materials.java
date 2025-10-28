@@ -1,13 +1,8 @@
 package ringed_strawberry.github.io.tailored_tools.custom.materials;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import it.unimi.dsi.fastutil.chars.Char2ObjectLinkedOpenHashMap;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
-import net.minecraft.resource.ResourceFinder;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import ringed_strawberry.github.io.tailored_tools.custom.toolparts.BindingStats;
@@ -15,16 +10,16 @@ import ringed_strawberry.github.io.tailored_tools.custom.toolparts.HiltStats;
 import ringed_strawberry.github.io.tailored_tools.custom.toolparts.RodStats;
 import ringed_strawberry.github.io.tailored_tools.custom.toolparts.ToolHeadStats;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+
+import static ringed_strawberry.github.io.tailored_tools.TailoredTools.LOGGER;
 
 public class Materials {
-    public static HashMap<Identifier, Material> materialList;
+    public static HashMap<Identifier, Material> materialList = new HashMap<>();
 
     public static Material parse(JsonObject json){
         Identifier materialId = Identifier.of(JsonHelper.getString(json,"id"));
+        LOGGER.info(materialId.toString());
 
         ToolHeadStats toolHeadStats = new ToolHeadStats(
                 JsonHelper.getDouble(json, "toolhead.speed",0.0),
@@ -49,12 +44,9 @@ public class Materials {
         // Intellj autosuggesiton( please fix it)
         Item item = Registries.ITEM.get(materialId);
 
-        Text translationKey = Text.translatable("material."+materialId.getNamespace()+"."+materialId.getPath());
-
         return new Material(
                 materialId,
                 item,
-                translationKey,
                 hiltStats,
                 toolHeadStats,
                 bindingStats,
