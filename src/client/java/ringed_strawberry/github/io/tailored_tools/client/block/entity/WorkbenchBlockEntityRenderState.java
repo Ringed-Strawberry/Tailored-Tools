@@ -8,4 +8,5 @@ import net.minecraft.client.render.item.ItemRenderState;
 @Environment(EnvType.CLIENT)
 public class WorkbenchBlockEntityRenderState  extends BlockEntityRenderState {
     public ItemRenderState itemRenderState = new ItemRenderState();
+    public int activeHandle = 0;
 }

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "tailored_tools:item/tailored_tool_pickaxe_toolhead",
+    "layer1": "tailored_tools:item/tailored_tool_binding",
+    "layer2": "tailored_tools:item/tailored_tool_rod",
+    "layer3": "tailored_tools:item/tailored_tool_handle"
+  }
+}

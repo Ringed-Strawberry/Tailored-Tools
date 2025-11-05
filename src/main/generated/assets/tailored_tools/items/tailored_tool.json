@@ -1,0 +1,24 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "tailored_tools:item/tailored_tool",
+    "tints": [
+      {
+        "type": "tailored_tools:tool",
+        "default": 0
+      },
+      {
+        "type": "tailored_tools:tool",
+        "default": 1
+      },
+      {
+        "type": "tailored_tools:tool",
+        "default": 2
+      },
+      {
+        "type": "tailored_tools:tool",
+        "default": 3
+      }
+    ]
+  }
+}

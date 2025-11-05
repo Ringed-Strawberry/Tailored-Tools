@@ -1,0 +1,22 @@
+{
+  "id": "tailored_tools:test",
+
+
+  "toolhead.damage": 99,
+  "toolhead.speed": 99,
+  "toolhead.durability": 999,
+  "toolhead.breaking_level": 99,
+
+
+  "hilt.speed": 9,
+
+
+  "rod.durability": 999,
+  "rod.speed": 99,
+
+
+  "binding.durability": 999,
+  "binding.speed": 99,
+
+  "color": "000000"
+}

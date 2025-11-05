@@ -16,5 +16,7 @@
 
 
   "binding.durability": 65,
-  "binding.speed": 0.3
+  "binding.speed": 0.3,
+
+  "color": "452508"
 }

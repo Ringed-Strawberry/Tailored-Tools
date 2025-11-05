@@ -1,0 +1,12 @@
+{
+  "tooltips.tailored_tools.durability": "Durability",
+  "tooltips.tailored_tools.damage": "Attack damage",
+  "tooltips.tailored_tools.speed": "Speed",
+  "tooltips.tailored_tools.break_power": "Breaking Power",
+  "tooltips.tailored_tools.tool_parts": "Tool Parts",
+  "tooltips.tailored_tools.materials": "Materials",
+  "tooltips.tailored_tools.tool_head": "Head",
+  "tooltips.tailored_tools.tool_binding": "Binding",
+  "tooltips.tailored_tools.tool_rod": "Rod",
+  "tooltips.tailored_tools.tool_hilt": "Hilt"
+}

@@ -23,6 +23,7 @@ public class WorkbenchBlockEntity extends BlockEntity implements ImplementedInve
     public WorkbenchBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.WORKBENCH, pos, state);
     }
+    public static int activeHandleSlot = 0;
 
     @Override
     public DefaultedList<ItemStack> getItems() {

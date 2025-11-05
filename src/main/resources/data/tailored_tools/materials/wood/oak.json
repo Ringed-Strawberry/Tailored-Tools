@@ -16,5 +16,7 @@
 
 
   "binding.durability": 70,
-  "binding.speed": 0.1
+  "binding.speed": 0.1,
+
+  "color": "bf8650"
 }

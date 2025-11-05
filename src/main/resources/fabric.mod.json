@@ -6,6 +6,7 @@
   "description": "Adds customizable Tool & Equipment, tailored by each player, for each player!",
   "authors": [],
   "contact": {},
+  "accessWidener" : "tailored_tools.accesswidener",
   "license": "MIT",
   "icon": "assets/tailored_tools/icon.png",
   "environment": "*",

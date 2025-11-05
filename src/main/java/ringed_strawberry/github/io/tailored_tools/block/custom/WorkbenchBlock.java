@@ -24,8 +24,8 @@ public class WorkbenchBlock extends BlockWithEntity {
     public static final MapCodec<WorkbenchBlock> CODEC = WorkbenchBlock.createCodec(WorkbenchBlock::new);
 
     public static void handlePlayerLook(BlockHitResult blockHit, World world) {
-        if(BlockHitUtil.isInteractionInRange(blockHit, 0.42f, 0.28f, 2)){
-            world.addImportantParticleClient(ParticleTypes.HAPPY_VILLAGER, true, blockHit.getPos().getX(), blockHit.getPos().getY(), blockHit.getPos().getZ(), 0, 0, 0);
+        if(world.getBlockEntity(blockHit.getBlockPos()) instanceof WorkbenchBlockEntity blockEntity) {
+            blockEntity.activeHandleSlot = WorkbenchUtil.getHandleSlot(blockHit);
         }
     }
 

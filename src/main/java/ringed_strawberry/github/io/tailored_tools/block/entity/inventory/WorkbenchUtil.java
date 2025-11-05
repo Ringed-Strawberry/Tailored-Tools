@@ -3,6 +3,7 @@ package ringed_strawberry.github.io.tailored_tools.block.entity.inventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Direction;
+import org.joml.Vector2d;
 import ringed_strawberry.github.io.spacelib.block.util.BlockHitUtil;
 
 public class WorkbenchUtil {
@@ -41,5 +42,16 @@ public class WorkbenchUtil {
             }
         }
         return 1;
+    }
+
+    public static Vector2d getHandlePosition(int handle){
+        switch (handle) {
+            default: return new Vector2d(0.42f, 0.28f);
+            case 2: return new Vector2d(0.42f, 0.71f);
+            case 3, 5: return new Vector2d(0.70f, 0.42f);
+            case 4, 6: return new Vector2d(0.27f, 0.42f);
+            case 7: return new Vector2d(0.42f, 0.28f);
+            case 8: return new Vector2d(0.41f, 0.74f);
+        }
     }
 }
