@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "tailored_tools:block/workbench"
+    }
+  }
+}
