@@ -3,14 +3,12 @@ package ringed_strawberry.github.io.tailored_tools.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.item.tint.TintSourceTypes;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -18,13 +16,10 @@ import ringed_strawberry.github.io.tailored_tools.block.ModBlocks;
 import ringed_strawberry.github.io.tailored_tools.block.custom.WorkbenchBlock;
 import ringed_strawberry.github.io.tailored_tools.block.entity.ModBlockEntities;
 import ringed_strawberry.github.io.tailored_tools.client.block.entity.WorkbenchBlockEntityRenderer;
-import ringed_strawberry.github.io.tailored_tools.client.color.tint.ToolTintSource;
 import ringed_strawberry.github.io.tailored_tools.item.ModItems;
 import ringed_strawberry.github.io.tailored_tools.item.component.ModItemComponents;
 import ringed_strawberry.github.io.tailored_tools.util.ColorUtil;
 import ringed_strawberry.github.io.tailored_tools.util.ToolUtil;
-
-import static ringed_strawberry.github.io.tailored_tools.TailoredTools.MOD_ID;
 
 public class TailoredToolsClient implements ClientModInitializer {
     MinecraftClient client = MinecraftClient.getInstance();
@@ -37,10 +32,12 @@ public class TailoredToolsClient implements ClientModInitializer {
             if(hit != null && hit.getType() == HitResult.Type.BLOCK){
                 BlockHitResult blockHit = (BlockHitResult) hit;
                 BlockPos blockPos = blockHit.getBlockPos();
-                BlockState blockState = client.world.getBlockState(blockPos);
-                Block block = blockState.getBlock();
-                if(block == ModBlocks.WORKBENCH){
-                    WorkbenchBlock.handlePlayerLook(blockHit, client.world);
+                if(client.world != null) {
+                    BlockState blockState = client.world.getBlockState(blockPos);
+                    Block block = blockState.getBlock();
+                    if (block == ModBlocks.WORKBENCH) {
+                        WorkbenchBlock.handlePlayerLook(blockHit, client.world, client.player);
+                    }
                 }
             }
         });
@@ -49,11 +46,10 @@ public class TailoredToolsClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntities.WORKBENCH, WorkbenchBlockEntityRenderer::new);
 
-        TintSourceTypes.ID_MAPPER.put(Identifier.of(MOD_ID, "tool"), ToolTintSource.CODEC);
 
-
-
-
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
+            return ToolUtil.getToolPartMaterial(stack, tintIndex).color();
+        }, ModItems.TAILORED_TOOL);
 
 
 

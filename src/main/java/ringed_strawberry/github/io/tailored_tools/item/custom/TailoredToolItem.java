@@ -2,24 +2,18 @@ package ringed_strawberry.github.io.tailored_tools.item.custom;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipData;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.World;
 import ringed_strawberry.github.io.tailored_tools.item.component.ModItemComponents;
 import ringed_strawberry.github.io.tailored_tools.util.ToolUtil;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class TailoredToolItem extends Item {
     public TailoredToolItem(Settings settings) {
@@ -32,11 +26,10 @@ public class TailoredToolItem extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         stack.set(ModItemComponents.MAX_DURABILITY, ToolUtil.getMaxDurability(stack));
-        super.inventoryTick(stack, world, entity, slot);
+        super.inventoryTick(stack, world, entity, slot, selected);
     }
-
 
     @Override
     public float getBonusAttackDamage(Entity target, float baseAttackDamage, DamageSource damageSource) {
@@ -57,7 +50,7 @@ public class TailoredToolItem extends Item {
 
     @Override
     public int getItemBarColor(ItemStack stack) {
-        return ColorHelper.getArgb(255, 0, 0);
+        return ColorHelper.Argb.getArgb(255, 0, 0);
     }
 
 

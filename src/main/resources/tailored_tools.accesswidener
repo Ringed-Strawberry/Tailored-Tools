@@ -2,3 +2,4 @@ accessWidener v2 named
 
 accessible class net/minecraft/client/data/TextureKey
 accessible method net/minecraft/client/data/TextureKey <init> (Ljava/lang/String;Lnet/minecraft/client/data/TextureKey;)V
+accessible method net/minecraft/data/client/ItemModelGenerator register (Lnet/minecraft/item/Item;Lnet/minecraft/data/client/Model;)V

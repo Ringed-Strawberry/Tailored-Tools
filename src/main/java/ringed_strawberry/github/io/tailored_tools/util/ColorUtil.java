@@ -12,7 +12,7 @@ public class ColorUtil {
         int g = Integer.valueOf(hexCode.substring(2, 4), 16);
         int b = Integer.valueOf(hexCode.substring(4, 6), 16);
 
-        return ColorHelper.getArgb(r,g,b);
+        return ColorHelper.Argb.getArgb(r,g,b);
     }
 
     public static Text textWithMaterialColor(Text text, Material material){
