@@ -1,22 +1,10 @@
 {
   "id": "tailored_tools:stone",
 
+  "damage": 5,
+  "speed": 2,
+  "durability": 90,
+  "breaking_level": 2,
 
-  "toolhead.damage": 5,
-  "toolhead.speed": 2,
-  "toolhead.durability": 90,
-  "toolhead.breaking_level": 2,
-
-
-  "hilt.speed": 0,
-
-
-  "rod.durability": 30,
-  "rod.speed": 0.1,
-
-
-  "binding.durability": 90,
-  "binding.speed": 0.3,
-
-  "color": "6f7070"
+  "color": "bf8650"
 }

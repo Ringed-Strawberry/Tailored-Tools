@@ -10,9 +10,9 @@ import java.util.List;
 import static ringed_strawberry.github.io.tailored_tools.TailoredTools.MOD_ID;
 
 public class ModItemComponents {
-    public static final ComponentType<List<Identifier>> TAILORED_TOOL = DataComponentGen.registerComponent(
+    public static final ComponentType<List<List<Identifier>>> TAILORED_TOOL = DataComponentGen.registerComponent(
             Identifier.of(MOD_ID, "tailored_tool"),
-            ComponentType.<List<Identifier>>builder().codec(Codec.list(Identifier.CODEC, 4,4)).build()
+            ComponentType.<List<List<Identifier>>>builder().codec(Codec.list(Codec.list(Identifier.CODEC, 2,2), 3,3)).build()
     );
 
     public static final ComponentType<Integer> MAX_DURABILITY = DataComponentGen.registerComponent(

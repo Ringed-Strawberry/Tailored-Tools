@@ -57,7 +57,7 @@ public class TailoredToolItem extends Item {
     //UI
     @Override
     public Text getName(ItemStack stack) {
-        return Text.of( ToolUtil.getMaterialName(stack, "head", true) + " Tailored Tool");
+        return Text.of( ToolUtil.getMaterialName(stack, "head", true) + " " + ToolUtil.getToolPartName(stack, "head", true));
     }
 
     @Override

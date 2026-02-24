@@ -18,7 +18,6 @@ import ringed_strawberry.github.io.tailored_tools.block.entity.ModBlockEntities;
 import ringed_strawberry.github.io.tailored_tools.client.block.entity.WorkbenchBlockEntityRenderer;
 import ringed_strawberry.github.io.tailored_tools.item.ModItems;
 import ringed_strawberry.github.io.tailored_tools.item.component.ModItemComponents;
-import ringed_strawberry.github.io.tailored_tools.util.ColorUtil;
 import ringed_strawberry.github.io.tailored_tools.util.ToolUtil;
 
 public class TailoredToolsClient implements ClientModInitializer {
@@ -48,7 +47,10 @@ public class TailoredToolsClient implements ClientModInitializer {
 
 
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
-            return ToolUtil.getToolPartMaterial(stack, tintIndex).color();
+            if(ToolUtil.getToolTint(stack, tintIndex) != 0) {
+                return ToolUtil.getToolTint(stack, tintIndex);
+            }
+            return 0;
         }, ModItems.TAILORED_TOOL);
 
 
@@ -69,24 +71,6 @@ public class TailoredToolsClient implements ClientModInitializer {
             list.add(
                     Text.translatable("tooltips.tailored_tools.damage")
                             .append(Text.of(": " + ToolUtil.getAttackDamage(stack)))
-            );
-
-            //Materials
-            list.add(Text.of(""));
-            list.add(Text.translatable("tooltips.tailored_tools.materials")
-                    .append(Text.of(": "))
-            );
-            list.add(
-                    ColorUtil.materialTooltip(stack, "head")
-            );
-            list.add(
-                    ColorUtil.materialTooltip(stack, "binding")
-            );
-            list.add(
-                    ColorUtil.materialTooltip(stack, "hilt")
-            );
-            list.add(
-                    ColorUtil.materialTooltip(stack, "rod")
             );
         });
     }

@@ -1,0 +1,10 @@
+{
+  "id": "tailored_tools:pickaxe_head",
+  "cost": 2,
+  "slot": "head",
+  "abilities": [
+  ],
+  "can.break": [
+    "minecraft:mineable/pickaxe"
+  ]
+}

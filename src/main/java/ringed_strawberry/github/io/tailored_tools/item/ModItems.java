@@ -13,7 +13,11 @@ import static ringed_strawberry.github.io.tailored_tools.TailoredTools.MOD_ID;
 public class ModItems{
 
     public static final Item TAILORED_TOOL = ItemGen.createItem(Identifier.of(MOD_ID, "tailored_tool"), TailoredToolItem::new,
-            new Item.Settings().component(ModItemComponents.MAX_DURABILITY, 0).component(ModItemComponents.TAILORED_TOOL, List.of(Identifier.of(MOD_ID, "oak"),Identifier.of(MOD_ID, "oak"),Identifier.of(MOD_ID, "oak"))));
+            new Item.Settings().component(ModItemComponents.MAX_DURABILITY, 0).component(ModItemComponents.TAILORED_TOOL,
+                    List.of(
+                            List.of(Identifier.of(MOD_ID, "pickaxe_head"), Identifier.of(MOD_ID, "stone")),
+                            List.of(Identifier.of(MOD_ID, "small_binding"), Identifier.of(MOD_ID, "oak")),
+                            List.of(Identifier.of(MOD_ID, "small_rod"), Identifier.of(MOD_ID, "oak")))));
 
     public static void registerModItems(){
 

@@ -4,21 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.SynchronousResourceReloader;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import ringed_strawberry.github.io.tailored_tools.custom.materials.Material;
 import ringed_strawberry.github.io.tailored_tools.custom.materials.Materials;
-import ringed_strawberry.github.io.tailored_tools.custom.toolparts.BindingStats;
-import ringed_strawberry.github.io.tailored_tools.custom.toolparts.HiltStats;
-import ringed_strawberry.github.io.tailored_tools.custom.toolparts.RodStats;
-import ringed_strawberry.github.io.tailored_tools.custom.toolparts.ToolHeadStats;
+import ringed_strawberry.github.io.tailored_tools.custom.tool_parts.ToolPart;
+import ringed_strawberry.github.io.tailored_tools.custom.tool_parts.ToolParts;
 
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
@@ -36,6 +29,7 @@ public class TailoredToolsReader implements SimpleSynchronousResourceReloadListe
 
     @Override
     public void reload(ResourceManager manager){
+        //Materials
         HashMap<Identifier, Material> tempMaterials = new HashMap<>();
 
         for (Identifier id: manager.findResources("materials", path -> path.toString().endsWith(".json")).keySet()){
@@ -51,6 +45,28 @@ public class TailoredToolsReader implements SimpleSynchronousResourceReloadListe
 
             Materials.materialList.clear();
             Materials.materialList.putAll(tempMaterials);
+        }
+
+
+
+
+
+        //Tool Parts
+        HashMap<Identifier, ToolPart> tempToolParts = new HashMap<>();
+
+        for (Identifier id: manager.findResources("tool_parts", path -> path.toString().endsWith(".json")).keySet()){
+            try (InputStreamReader stream = new InputStreamReader(manager.getResource(id).get().getInputStream()) ){
+                JsonObject json = JsonHelper.deserialize(GSON, stream, JsonObject.class);
+
+                ToolPart toolPart = ToolParts.parse(json);
+
+                tempToolParts.put(toolPart.id(), toolPart);
+            } catch (Exception e) {
+                LOGGER.info("ERROR loading tool parts    ERROR:   " + e.getMessage());
+            }
+
+            ToolParts.toolPartList.clear();
+            ToolParts.toolPartList.putAll(tempToolParts);
         }
     }
 

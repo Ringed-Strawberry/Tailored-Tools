@@ -1,7 +1,7 @@
-{
-  "variants": {
-    "": {
-      "model": "tailored_tools:block/workbench"
+  {
+    "variants": {
+      "": {
+        "model": "tailored_tools:block/workbench"
+      }
     }
   }
-}
