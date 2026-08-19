@@ -1,10 +1,11 @@
 {
   "id": "tailored_tools:test",
+  "item": "",
 
   "damage": 99,
   "speed": 99,
   "durability": 99,
   "breaking_level" :99,
 
-  "color": "bf8650"
+  "color": "000000"
 }

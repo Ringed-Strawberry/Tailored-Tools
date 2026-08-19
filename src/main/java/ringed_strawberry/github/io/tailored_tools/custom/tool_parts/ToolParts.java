@@ -13,12 +13,15 @@ import ringed_strawberry.github.io.tailored_tools.custom.tool_parts.ability.Tool
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static ringed_strawberry.github.io.tailored_tools.TailoredTools.LOGGER;
+import static ringed_strawberry.github.io.tailored_tools.TailoredTools.MOD_ID;
 import static ringed_strawberry.github.io.tailored_tools.util.ToolUtil.toolNameToIndex;
 
 public class ToolParts {
-    public static HashMap<Identifier, ToolPart> toolPartList = new HashMap<>();
+    public static final ToolPart ERROR = new ToolPart(Identifier.of(MOD_ID, "error"), 0, (byte) 0,0, 0, 0, null, null);
+    public static HashMap<Identifier, ToolPart> toolPartList = new HashMap<>(Map.of(Identifier.of(MOD_ID, "error"), ERROR));
 
     public static ToolPart parse(JsonObject json){
         Identifier toolPartId = Identifier.of(JsonHelper.getString(json,"id", "tailored_tools:error"));
@@ -37,6 +40,10 @@ public class ToolParts {
             abilities.add(ability);
         }
 
+        if(slot == 0){
+
+        }
+
         ArrayList<TagKey<Block>> breakableTags = new ArrayList<>();
         JsonArray breakableTagsJsonArray = JsonHelper.getArray(json, "can.break", new JsonArray());
 
@@ -44,7 +51,6 @@ public class ToolParts {
             TagKey<Block> tag = TagKey.of(RegistryKeys.BLOCK, Identifier.of(element.getAsString()));
             breakableTags.add(tag);
         }
-
         return new ToolPart(
                 toolPartId,
                 materialCost,

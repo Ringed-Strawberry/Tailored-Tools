@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import static ringed_strawberry.github.io.tailored_tools.block.ModBlocks.registerModBlocks;
 import static ringed_strawberry.github.io.tailored_tools.block.entity.ModBlockEntities.registerModBlockEntities;
+import static ringed_strawberry.github.io.tailored_tools.custom.tool_parts.ability.ToolAbilities.registerToolAbilities;
 import static ringed_strawberry.github.io.tailored_tools.item.ModItems.registerModItems;
 import static ringed_strawberry.github.io.tailored_tools.item.component.ModItemComponents.registerModComponents;
 
@@ -22,5 +23,6 @@ public class TailoredTools implements ModInitializer {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new TailoredToolsReader());
         registerModComponents();
         registerModItems();
+        registerToolAbilities();
     }
 }

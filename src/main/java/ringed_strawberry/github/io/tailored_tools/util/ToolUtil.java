@@ -4,14 +4,19 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
+import ringed_strawberry.github.io.tailored_tools.TailoredTools;
 import ringed_strawberry.github.io.tailored_tools.custom.materials.Material;
 import ringed_strawberry.github.io.tailored_tools.custom.materials.Materials;
 import ringed_strawberry.github.io.tailored_tools.custom.tool_parts.ToolPart;
 import ringed_strawberry.github.io.tailored_tools.custom.tool_parts.ToolParts;
+import ringed_strawberry.github.io.tailored_tools.item.component.ModItemComponents;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import static ringed_strawberry.github.io.tailored_tools.item.component.ModItemComponents.TAILORED_TOOL;
 
@@ -37,40 +42,35 @@ public class ToolUtil {
         return -1;
     }
 
-    public static double getToolSpeed(ItemStack stack, BlockState state){
-        if(stack.get(TAILORED_TOOL) != null){
-            double speed = 0;
-            speed += (getToolPartMaterial(stack, "head").speed() * getToolPart(stack, "head").speedMultiplier());
-            speed += (getToolPartMaterial(stack, "rod").speed() * getToolPart(stack, "rod").speedMultiplier());
-            speed += (getToolPartMaterial(stack, "binding").speed() * getToolPart(stack, "binding").speedMultiplier());
-            boolean correctBlock= false;
-            for (int i = 0; i < getToolPart(stack, "head").blockBreakingTags().size(); i++) {
-                TagKey<Block> tag = getToolPart(stack, "head").blockBreakingTags().get(i);
-                if(state.isIn(tag)){
-                    correctBlock = true;
-                }
-            }
-
-            return speed * (correctBlock ? 2 : 1);
-        }
-        return -1;
+    public static double getToolSpeed(ItemStack stack){
+        double speed = 0;
+        speed += (getToolPartMaterial(stack, "head").speed() * getToolPart(stack, "head").speedMultiplier());
+        speed += (getToolPartMaterial(stack, "rod").speed() * getToolPart(stack, "rod").speedMultiplier());
+        speed += (getToolPartMaterial(stack, "binding").speed() * getToolPart(stack, "binding").speedMultiplier());
+        return speed;
     }
 
 
-    private static ToolPart getToolPart(ItemStack stack, String toolPart) {
+    public static ToolPart getToolPart(ItemStack stack, String toolPart) {
         return getToolPart(stack, toolNameToIndex.get(toolPart));
     }
 
     public static ToolPart getToolPart(ItemStack stack, int toolPart){
-        return ToolParts.toolPartList.get(stack.get(TAILORED_TOOL).get(toolPart).getFirst());
+        if(ToolParts.toolPartList.get(stack.get(TAILORED_TOOL).get(toolPart).getFirst()) != null)
+            return ToolParts.toolPartList.get(stack.get(TAILORED_TOOL).get(toolPart).getFirst());
+        else
+            return ToolParts.ERROR;
     }
 
     public static Material getToolPartMaterial(ItemStack stack, String toolPart){
-        return Materials.materialList.get(stack.get(TAILORED_TOOL).get(toolNameToIndex.get(toolPart)).getLast());
+        return getToolPartMaterial(stack, toolNameToIndex.get(toolPart));
     }
 
     public static Material getToolPartMaterial(ItemStack stack, int toolPart){
-        return Materials.materialList.get(stack.get(TAILORED_TOOL).get(toolPart).getLast());
+        if(Materials.materialList.get(stack.get(TAILORED_TOOL).get(toolPart).getLast()) != null)
+            return Materials.materialList.get(stack.get(TAILORED_TOOL).get(toolPart).getLast());
+        else
+            return Materials.ERROR;
     }
 
     public static int getToolTint(ItemStack stack, int toolPart) {
@@ -85,33 +85,163 @@ public class ToolUtil {
     }
 
     public static String getMaterialName(ItemStack stack, String toolPart, boolean Capitalised) {
-        String materialName = getToolPartMaterial(stack, toolPart).id().getPath();
-        materialName = Pattern.compile("^.").matcher(materialName).replaceFirst(m -> {
-            if(Capitalised)
-                return m.group().toUpperCase();
-            else
-                return m.group();
-        });
+        String[] words = getToolPartMaterial(stack, toolPart).id().getPath().split("_");
+        StringBuilder result = new StringBuilder();
 
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i].toLowerCase();
+            if (!word.isEmpty()) {
+                if(Capitalised) {
+                    result.append(Character.toUpperCase(word.charAt(0)));
+                }
+                result.append(word.substring(1));
+            }
+            if (i < words.length - 1) {
+                result.append(" ");
+            }
+        }
 
-        return materialName;
+        return result.toString();
+    }
+
+    public static Text getMaterialNameStyled(ItemStack stack, String toolPart, boolean Capitalised){
+        String textToStyle = getMaterialName(stack, toolPart, Capitalised);
+        Text styledText = Text.of(textToStyle).copy();
+        styledText = styledText.getWithStyle(Style.EMPTY.withColor(ToolUtil.getToolTint(stack, toolPart))).getFirst();
+        return styledText;
+    }
+
+    public static ArrayList<Text> getStyledMaterialStats(ItemStack stack, String toolPart) {
+        Material material = getToolPartMaterial(stack, toolPart);
+        ArrayList<Text> list = new ArrayList<>();
+
+        //ID
+        list.add(Text.of(material.id().toString()).copy()
+                .getWithStyle(Style.EMPTY.withColor(Colors.GRAY)).getFirst());
+        //Speed
+        list.add(Text.translatable("tooltips.tailored_tools.speed")
+                .append(Text.of(String.valueOf(material.speed())).copy()
+                .getWithStyle(Style.EMPTY.withColor(Colors.LIGHT_GRAY)).getFirst()));
+        //Damage
+        list.add(Text.translatable("tooltips.tailored_tools.damage")
+                .append(Text.of(String.valueOf(material.damage())).copy()
+                .getWithStyle(Style.EMPTY.withColor(Colors.LIGHT_GRAY)).getFirst()));
+        //Durability
+        list.add(Text.translatable("tooltips.tailored_tools.durability")
+                .append(Text.of(String.valueOf(material.durability())).copy()
+                .getWithStyle(Style.EMPTY.withColor(Colors.LIGHT_GRAY)).getFirst()));
+        return list;
     }
 
     public static String getToolPartName(ItemStack stack, String toolPart, boolean Capitalised) {
-        String toolPartName = getToolPart(stack, toolPart).id().getPath();
-        toolPartName = Pattern.compile("^.").matcher(toolPartName).replaceFirst(m -> {
-            if(Capitalised)
-                return m.group().toUpperCase();
-            else
-                return m.group();
-        });
+        String[] words = getToolPart(stack, toolPart).id().getPath().split("_");
+        StringBuilder result = new StringBuilder();
 
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i].toLowerCase();
+            if (!word.isEmpty()) {
+                if(Capitalised) {
+                    result.append(Character.toUpperCase(word.charAt(0)));
+                }
+                result.append(word.substring(1));
+            }
+            if (i < words.length - 1) {
+                result.append(" ");
+            }
+        }
 
-        return toolPartName;
+        return result.toString();
     }
 
 
     public static float getMiningSpeed(ItemStack stack, BlockState state) {
-        return (float) getToolSpeed(stack, state);
+        if(stack.get(TAILORED_TOOL) != null){
+            if(getSpeed(stack, state) == 1){
+                return 1;
+            } else {
+                return (float) (getToolSpeed(stack) * getSpeed(stack, state));
+            }
+        }
+        return 0;
+    }
+
+    public static boolean getDrops(ItemStack stack, BlockState state) {
+        boolean shouldDrop = !state.isToolRequired();
+        if(!shouldDrop){
+            shouldDrop = isCorrectBlock(stack, state);
+        }
+        return shouldDrop;
+    }
+
+    public static boolean doesStateMatch(boolean material, BlockState state, ItemStack stack){
+        if(material){
+            if(getToolPartMaterial(stack, "head").blockBreakingInverseTags() != null) {
+                for (TagKey<Block> tag : getToolPartMaterial(stack, "head").blockBreakingInverseTags()) {
+                    if (state.isIn(tag)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        else {
+            if(getToolPart(stack, "head").blockBreakingTags() != null && state.isToolRequired()) {
+                for (TagKey<Block> tag : getToolPart(stack, "head").blockBreakingTags()) {
+                    if (state.isIn(tag)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
+    public static int getSpeed(ItemStack stack, BlockState state){
+        int returnValue = 0;
+        if(!state.isToolRequired())
+            returnValue = 1;
+
+        boolean toolMatches = doesStateMatch(false, state, stack);
+        boolean materialMatches = doesStateMatch(true, state, stack);
+
+        if(toolMatches && materialMatches)
+            returnValue = 2;
+
+        if((toolMatches && !materialMatches) || (!toolMatches && materialMatches)) {
+            returnValue = 1;
+        }
+
+        TailoredTools.LOGGER.info(String.valueOf(returnValue));
+
+        return returnValue;
+    }
+
+    public static boolean isCorrectBlock(ItemStack stack, BlockState state){
+        if(!state.isToolRequired())
+            return true;
+
+        boolean toolMatches = doesStateMatch(false, state, stack);
+        boolean materialMatches = doesStateMatch(true, state, stack);
+
+        return materialMatches && toolMatches;
+    }
+
+    public static int getDurability(ItemStack stack) {
+        return stack.getOrDefault(ModItemComponents.DURABILITY, -1);
+    }
+
+    public static int getClampedDurability(ItemStack stack) {
+        return Math.clamp(getDurability(stack), 1, Integer.MAX_VALUE);
+    }
+
+    public static void removeDurability(ItemStack stack, int remove) {
+        setDurability(stack, Math.clamp(getDurability(stack)-remove, 1, getMaxDurability(stack)));
+    }
+
+    public static void setDurability(ItemStack stack, int newDurability) {
+        if(getDurability(stack) != -1){
+            stack.set(ModItemComponents.DURABILITY, newDurability);
+        }
     }
 }

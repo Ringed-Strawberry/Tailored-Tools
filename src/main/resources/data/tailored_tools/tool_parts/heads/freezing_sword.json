@@ -1,0 +1,11 @@
+{
+  "id": "tailored_tools:freezing_sword",
+  "cost": 2,
+  "slot": "head",
+  "abilities": [
+    "tailored_tools:freezing_attack_ability"
+  ],
+  "can.break": [
+    "minecraft:mineable/sword"
+  ]
+}

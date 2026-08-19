@@ -1,0 +1,14 @@
+{
+  "id": "tailored_tools:hammer",
+  "cost": 4,
+  "multiplier.speed": 0.8,
+  "multiplier.damage": 1.2,
+  "multiplier.durability": 1.4,
+  "slot": "head",
+  "abilities": [
+    "tailored_tools:3x3_ability"
+  ],
+  "can.break": [
+    "minecraft:mineable/pickaxe"
+  ]
+}

@@ -4,7 +4,7 @@
   "damage": 4,
   "speed": 1,
   "durability": 50,
-  "breaking_level": 1,
+  "cannot.break": ["minecraft:incorrect_for_wooden_tool"],
 
   "color": "bf8650"
 }

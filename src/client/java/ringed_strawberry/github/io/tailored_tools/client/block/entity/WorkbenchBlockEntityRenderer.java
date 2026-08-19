@@ -67,7 +67,7 @@ public class WorkbenchBlockEntityRenderer implements BlockEntityRenderer<Workben
                             focusChecked,
                             -focusCheckedWidth / 2,
                             -4f,
-                            0xffffff,
+                            0xFFFFFF,
                             false,
                             matrices.peek().getPositionMatrix(),
                             vertexConsumers,

@@ -21,7 +21,6 @@ public class TailoredToolsModelProvider extends FabricModelProvider {
 	public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSingleton(ModBlocks.WORKBENCH, TexturedModel.CUBE_BOTTOM_TOP);
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.WORKBENCH, Identifier.of(MOD_ID, "block/workbench"));
-
 	}
 
 

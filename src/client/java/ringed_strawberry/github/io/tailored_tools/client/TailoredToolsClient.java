@@ -21,6 +21,7 @@ import ringed_strawberry.github.io.tailored_tools.item.component.ModItemComponen
 import ringed_strawberry.github.io.tailored_tools.util.ToolUtil;
 
 public class TailoredToolsClient implements ClientModInitializer {
+    public final static String MOD_ID = "tailored_tools";
     MinecraftClient client = MinecraftClient.getInstance();
 
 
@@ -53,10 +54,6 @@ public class TailoredToolsClient implements ClientModInitializer {
             return 0;
         }, ModItems.TAILORED_TOOL);
 
-
-
-
-
         ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, list) -> {
             if (!stack.isOf(ModItems.TAILORED_TOOL)) {
                 return;
@@ -72,6 +69,47 @@ public class TailoredToolsClient implements ClientModInitializer {
                     Text.translatable("tooltips.tailored_tools.damage")
                             .append(Text.of(": " + ToolUtil.getAttackDamage(stack)))
             );
+
+            //Speed
+            list.add(
+                    Text.translatable("tooltips.tailored_tools.speed")
+                            .append(Text.of(": " + ToolUtil.getToolSpeed(stack)))
+            );
+
+            //Tool Part List
+            list.add(Text.translatable("tooltips.tailored_tools.tool_list").append(Text.of(":")));
+            //Head
+            list.add(Text.of(" - ").copy()
+                    .append(Text.translatable("tooltips.tailored_tools.tool_head")
+                            .append(Text.of(": "))
+                            .append(Text.of(ToolUtil.getMaterialNameStyled(stack, "head", true)))
+                    ));
+
+            if (client.options.sneakKey.isPressed()) {
+                list.addAll(ToolUtil.getStyledMaterialStats(stack, "head"));
+            }
+
+            //Binding
+            list.add(Text.of(" - ").copy()
+                    .append(Text.translatable("tooltips.tailored_tools.tool_binding")
+                            .append(Text.of(": "))
+                            .append(Text.of(ToolUtil.getMaterialNameStyled(stack, "binding", true)))
+                    ));
+
+            if (client.options.sneakKey.isPressed()) {
+                list.addAll(ToolUtil.getStyledMaterialStats(stack, "binding"));
+            }
+
+            //Rod
+            list.add(Text.of(" - ").copy()
+                    .append(Text.translatable("tooltips.tailored_tools.tool_rod")
+                            .append(Text.of(": "))
+                            .append(Text.of(ToolUtil.getMaterialNameStyled(stack, "rod", true)))
+                    ));
+
+            if (client.options.sneakKey.isPressed()) {
+                list.addAll(ToolUtil.getStyledMaterialStats(stack, "rod"));
+            }
         });
     }
 }

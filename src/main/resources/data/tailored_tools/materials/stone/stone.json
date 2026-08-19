@@ -5,6 +5,7 @@
   "speed": 2,
   "durability": 90,
   "breaking_level": 2,
+  "cannot.break": ["minecraft:incorrect_for_stone_tool"],
 
-  "color": "bf8650"
+  "color": "b3b3b3"
 }

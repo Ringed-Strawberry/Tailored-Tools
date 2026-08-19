@@ -13,6 +13,5 @@ public class ModBlocks {
     public static final Block WORKBENCH = createBlock(WorkbenchBlock::new, Identifier.of(MOD_ID, "workbench"), AbstractBlock.Settings.copy(Blocks.CRAFTING_TABLE));
 
     public static void registerModBlocks(){
-
     }
 }

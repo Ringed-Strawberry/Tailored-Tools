@@ -1,0 +1,11 @@
+{
+  "id": "tailored_tools:spamming_pickaxe",
+  "cost": 2,
+  "slot": "head",
+  "abilities": [
+    "tailored_tools:spammer_ability"
+  ],
+  "can.break": [
+    "minecraft:mineable/pickaxe"
+  ]
+}
